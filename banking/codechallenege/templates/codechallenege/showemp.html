@@ -1,0 +1,31 @@
+{%extends 'codechallenege/base.html'%}
+{%block title%}
+ {{title}}
+{%endblock %}
+{%block content%}
+ <table border= '1'>
+  <tr>
+    <th>
+      employer
+    </th>
+    <th>
+      physical address
+    </th>
+    <th>
+      designation
+    </th>
+    <th>
+      employement terms
+    </th>
+  </tr>
+   {%for user in users%}
+   <tr>
+       <td>{{user.employer}}</td>
+       <td>{{user.physical_add}}</td>
+       <td>{{user.designation}}</td>
+       <td>{{user.employmenterms}}</td>
+   </tr>
+   {%endfor%}
+  
+ </table>
+{%endblock%}

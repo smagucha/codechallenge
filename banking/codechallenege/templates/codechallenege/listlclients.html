@@ -1,0 +1,31 @@
+{%extends 'codechallenege/base.html'%}
+{%block title%}
+ {{title}}
+{%endblock %}
+{%block content%}
+ <table>
+   {%for user in users%}
+   <tr>
+       <td>{{user.membership_no}}</td>
+       <td>{{user.firstname}}</td>
+       <td>{{user.middle_name}}</td>
+       <td>{{user.last_name}}</td>
+       <td>{{user.DateOfBirth}}</td>
+       <td>{{user.Homeaddress}}</td>
+       <td>{{user.officeNumber}}</td>
+       <td>{{user.mobile_no}}</td>
+       <td>{{user.Pin_no}}</td>
+       <td>{{user.Email}}</td>
+       <td>{{user.physical_add}}</td>
+       <td>{{user.town}}</td>
+       <td>{{user.estate}}</td>
+       <td>{{user.house_no}}</td>
+       <td>{{user.livethrere}}</td>
+       <td>{{user.Houseowned}}</td>
+       <td>{{user.martial_status}}</td>
+       <td>{{user.No_dependents}}</td>
+   </tr>
+   {%endfor%}
+    
+ </table>
+{%endblock%}

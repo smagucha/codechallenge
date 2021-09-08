@@ -1,0 +1,18 @@
+{%extends 'codechallenege/base.html'%}
+{%block title%}
+ {{title}}
+{%endblock %}
+{%block content%}
+ <table>
+   {%for user in users%}
+   <tr>
+       <td>{{user.account_name}}</td>
+       <td>{{user.account_no}}</td>
+       <td>{{user.bank}}</td>
+       <td>{{user.branch}}</td>
+   </tr>
+   {%endfor%}
+    
+ </table>
+
+{%endblock%}

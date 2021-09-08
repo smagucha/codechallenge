@@ -1,0 +1,17 @@
+{%extends 'codechallenege/base.html'%}
+{%block title%}
+ {{title}}
+{%endblock %}
+{%block content%}
+ <table>
+   {%for user in users%}
+   <tr>
+       <td>{{user.typeofbusiness}}</td>
+       <td>{{user.yrsoperation}}</td>
+       <td>{{user.businessincome}}</td>
+   </tr>
+   {%endfor%}
+    
+ </table>
+ dfbdjlkf
+{%endblock%}
