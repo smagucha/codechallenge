@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelForm
 
-from .models import Bioinfo, BusinessDetails, EmploymentDetails, Bankdetails, LoanType,OtherLoans,  Bankdetails
+from .models import Bioinfo, BusinessDetails, EmploymentDetails, Bankdetails, LoanType,OtherLoans,  Bankdetails, OtherLoans
 
 
 class DateInput(forms.DateInput):
@@ -34,4 +34,18 @@ class bankdetailsform(ModelForm):
 
 	class Meta:
 		model = Bankdetails
+		fields ="__all__"
+
+
+
+class LoanTypeform(ModelForm):
+
+	class Meta:
+		model = LoanType
+		fields ="__all__"
+
+class Otherloanform(ModelForm):
+
+	class Meta:
+		model = OtherLoans
 		fields ="__all__"

@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
+import requests
+from django.http import HttpResponse
 
-from .forms import Bioinfoform, Businessdetailsform, empdetailsform, bankdetailsform
-from .models import  Bioinfo, BusinessDetails, EmploymentDetails, Bankdetails
+from .forms import Bioinfoform, Businessdetailsform, empdetailsform, bankdetailsform, LoanTypeform, Otherloanform
+from .models import  Bioinfo, BusinessDetails, EmploymentDetails, Bankdetails, LoanType, OtherLoans
 
 def home(request):
 	context ={
@@ -16,7 +18,7 @@ def userbio(request):
 		if form.is_valid():
 			form.save()
 			form = Bioinfoform()
-			return redirect('homepage')
+			return redirect('nextpage')
 	else:
 		form = Bioinfoform()
 		context ={
@@ -24,6 +26,7 @@ def userbio(request):
 			'form': form
 		}
 		return render(request,'codechallenege/bioinfo.html', context)
+
 
 def listclients(request):
 	clients = Bioinfo.objects.all()
@@ -40,12 +43,14 @@ def updateuser(request, id):
 	if form.is_valid():
 		form.save()
 		form= Bioinfoform()
-		return redirect('list user')
+		return redirect('list_user')
 	context ={
 		'userobj':userobj,
 		'form': form,
 		'title': 'update your details',
 	}
+	
+	
 	return render(request, 'codechallenege/updatedetails.html', context)
 
 
@@ -220,3 +225,119 @@ def deletebank(request, id):
 		'title': 'remove bank details',
 	}
 	return render(request, 'codechallenege/deletebank.html', context)
+
+
+
+''' fifth part of the project '''
+
+def Loanform(request):
+	if request.method == 'POST':
+		form = LoanTypeform(request.POST)
+		if form.is_valid():
+			form.save()
+			form = LoanTypeform()
+			return redirect('homepage')
+	else:
+		form = LoanTypeform()
+		context ={
+			'title': 'loan form',
+			'form': form
+		}
+		return render(request,'codechallenege/loanform.html', context)
+
+def loantypedetails(request):
+	clientsbank = LoanType.objects.all()
+	context = {
+		'title': 'bank details',
+		'users': clientsbank
+	}
+	return render(request, 'codechallenege/loandetails.html', context)
+
+
+def updateloan(request, id):
+	loanobj =LoanType.objects.get(id =id)
+	form =  LoanTypeform(request.POST or None, instance= loanobj)
+	if form.is_valid():
+		form.save()
+		form= LoanTypeform()
+		return redirect('list user')
+	context ={
+		'loanobj':loanobj,
+		'form': form,
+		'title': 'update your details',
+	}
+	return render(request, 'codechallenege/updateloan.html', context)
+
+
+def deleteloan(request, id):
+	delloan =loandetails.objects.get(id =id)
+	if request.method == 'POST':
+		delloan.delete()
+		return redirect('list user')
+	context ={
+		'delloan':delloan,
+		'title': 'remove bank details',
+	}
+	return render(request, 'codechallenege/deleteloan.html', context)
+
+
+''' sixth part of the project '''
+
+def otherform(request):
+	if request.method == 'POST':
+		form = Otherloanform(request.POST)
+		if form.is_valid():
+			form.save()
+			form = Otherloanform()
+			return redirect('homepage')
+	else:
+		form = Otherloanform()
+		context ={
+			'title': 'loan form',
+			'form': form
+		}
+		return render(request,'codechallenege/otherform.html', context)
+
+def otherdetails(request):
+	clientsbank = OtherLoans.objects.all()
+	context = {
+		'title': 'other bank details',
+		'users': clientsbank
+	}
+	return render(request, 'codechallenege/otherdetails.html', context)
+
+
+def updateother(request, id):
+	otherobj =OtherLoans.objects.get(id =id)
+	form =  Otherloanform(request.POST or None, instance= otherobj)
+	if form.is_valid():
+		form.save()
+		form= Otherloanform()
+		return redirect('list user')
+	context ={
+		'otherobj':otherobj,
+		'form': form,
+		'title': 'update your details',
+	}
+	return render(request, 'codechallenege/updateother.html', context)
+
+
+def deleteother(request, id):
+	delother =OtherLoans.objects.get(id =id)
+	if request.method == 'POST':
+		delother.delete()
+		return redirect('list user')
+	context ={
+		'delother':delother,
+		'title': 'delete other  bank details',
+	}
+	return render(request, 'codechallenege/deleteother.html', context)
+
+
+def nextpage(request):
+
+	context ={
+		
+		'title': 'next item',
+	}
+	return render(request, 'codechallenege/nextpage.html')

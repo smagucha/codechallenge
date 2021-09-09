@@ -41,7 +41,10 @@ class Bioinfo(models.Model):
 	No_dependents = models.PositiveIntegerField()
 
 	def __str__(self):
-		return (self.first_name)
+		return (self.first_name +"   "+self.middle_name)
+
+	class Meta:
+		verbose_name_plural = "Bioinfo"
 
 
 # client to fill if he/she runs a business
@@ -50,8 +53,14 @@ class BusinessDetails(models.Model):
 	yrsoperation = models.PositiveIntegerField()
 	Businessincome = models.PositiveIntegerField()
 
+	class Meta:
+		verbose_name_plural = "BusinessDetails"
+	def __str__(self):
+		return self.typeofbusiness
+
 # client to fill if employe
 class EmploymentDetails(models.Model):
+	
 	Permanent ='Peranent'
 	Casual = 'casual'
 	Contract = 'Contract'
@@ -66,11 +75,19 @@ class EmploymentDetails(models.Model):
 	designation = models.CharField (max_length=100)
 	employmenterms= models.CharField(max_length=9, choices=terms,)
 
+	class Meta:
+		verbose_name_plural = "EmploymentDetails"
+
+	
+
 class Bankdetails(models.Model):
 	account_name = models.CharField(max_length= 100)
 	acount_no = models.PositiveIntegerField()
 	Bank = models.CharField(max_length= 100)
 	branch = models.CharField(max_length= 100)
+
+	class Meta:
+		verbose_name_plural = "bankdetails"
 
 class LoanType(models.Model):
 	Normal = 'normal'
@@ -94,6 +111,9 @@ class OtherLoans(models.Model):
 	date_granted = models.DateField()
 	Repayment_period = models.PositiveIntegerField()
 	Outstanding_balance = models.PositiveIntegerField()
+
+	class Meta:
+		verbose_name_plural = "OtherLoans"
 
 
 
