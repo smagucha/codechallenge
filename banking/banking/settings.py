@@ -28,7 +28,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'codechallenege',
     'django.contrib.sites',
-    'accounts'
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -81,6 +80,7 @@ DATABASES = {
 }
 
 
+
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
@@ -119,16 +119,14 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-SITE_ID = 6
+SITE_ID = 7
 
 
-# ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS =1
-# ACCOUNT_EMAIL_REQUIRED = True
-# ACCOUNT_EMAIL_VERIFICATION = "mandatory"
-# ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5
-  
-# # 1 day
-# ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 86400 
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS =1
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5
+ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 86400 
 
 LOGIN_REDIRECT_URL ='/'
 LOGOUT_REDIRECT_URL = '/'
