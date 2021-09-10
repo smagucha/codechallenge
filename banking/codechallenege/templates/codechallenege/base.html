@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,6 +17,8 @@
     <!-- Sidebar -->
     <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
       <hr class="sidebar-divider my-0">
+      {% load custom_tags %}
+      {% if request.user|has_group:"admin" %}
       <li class="nav-item active">
         <a class="nav-link" href="{% url 'homepage' %}">
           <i class="fas fa-fw fa-tachometer-alt"></i>
@@ -83,7 +86,61 @@
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>other loan details</span></a>
       </li>
-     
+      {% elif request.user|has_group:"admin" %}
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'homepage' %}">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Dashboard</span></a>
+      </li>
+       <li class="nav-item active">
+        <a class="nav-link" href="{% url 'list_user' %}">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>clients</span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'loan_details' %}">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>loan details</span></a>
+      </li>
+       <li class="nav-item active">
+        <a class="nav-link" href="{% url 'other_details' %}">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>other loan details</span></a>
+      </li>
+      {% elif request.user|has_group:"clientuser" %}
+     <li class="nav-item active">
+        <a class="nav-link" href="{% url 'homepage' %}">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Dashboard</span></a>
+      </li>
+
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'userdetails' %}">
+          <i class="bi bi-person"></i>
+          <span>Person info</span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'client_business' %}">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>business form</span></a>
+      </li>
+       <li class="nav-item active">
+        <a class="nav-link" href="{% url 'loan_form' %}">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>loan form</span></a>
+      </li>
+
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'emp_form' %}">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>employment form</span></a>
+      </li>
+       <li class="nav-item active">
+        <a class="nav-link" href="{% url 'other_form' %}">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>other_form</span></a>
+      </li>
+      {%endif%}
       <hr class="sidebar-divider">        
     </ul>
     <!-- Sidebar -->

@@ -1,4 +1,25 @@
 from django.db import models
+from .validators import onlyletters
+
+
+from django.contrib.auth.models import Group, Permission
+
+
+# import User model
+# from users.models import User
+
+new_group, created = Group.objects.get_or_create(name ='admin')
+new_group, created = Group.objects.get_or_create(name ='clientuser')
+new_group, created = Group.objects.get_or_create(name ='webadminister')
+# # Code to add permission to group
+# ct = ContentType.objects.get_for_model(User)
+
+# # If I want to add 'Can go Haridwar' permission to level0 ?
+# permission = Permission.objects.create(codename ='can_go_haridwar',
+# 										name ='Can go to Haridwar',
+# 												content_type = ct)
+# new_group.permissions.add(permission)
+
 
 class Bioinfo(models.Model):
 	No ='No'
@@ -20,7 +41,7 @@ class Bioinfo(models.Model):
 		(window, 'window'),
 		(other, 'other')
 		)
-
+	
 	membership_no = models.PositiveIntegerField()
 	first_name = models.CharField(max_length= 50)
 	middle_name = models.CharField(max_length= 50)
@@ -28,7 +49,7 @@ class Bioinfo(models.Model):
 	DateOfBirth = models.DateField()
 	Homeaddress = models.CharField(max_length= 50)
 	OffieNumber= models.PositiveIntegerField()
-	mobile_no = models.PositiveIntegerField()
+	mobile_no = models.CharField(max_length=12,)
 	Pin_no = models.CharField(max_length= 50)
 	Email = models.EmailField(max_length=100)
 	physical_add = models.CharField(max_length = 100)
@@ -52,6 +73,7 @@ class BusinessDetails(models.Model):
 	typeofbusiness = models.CharField(max_length = 100)
 	yrsoperation = models.PositiveIntegerField()
 	Businessincome = models.PositiveIntegerField()
+	bio = models.ForeignKey(Bioinfo, on_delete=models.CASCADE)
 
 	class Meta:
 		verbose_name_plural = "BusinessDetails"
@@ -74,6 +96,7 @@ class EmploymentDetails(models.Model):
 	physical_add = models.CharField(max_length= 100)
 	designation = models.CharField (max_length=100)
 	employmenterms= models.CharField(max_length=9, choices=terms,)
+	bio = models.ForeignKey(Bioinfo, on_delete=models.CASCADE)
 
 	class Meta:
 		verbose_name_plural = "EmploymentDetails"
@@ -85,6 +108,7 @@ class Bankdetails(models.Model):
 	acount_no = models.PositiveIntegerField()
 	Bank = models.CharField(max_length= 100)
 	branch = models.CharField(max_length= 100)
+	bio = models.ForeignKey(Bioinfo, on_delete=models.CASCADE)
 
 	class Meta:
 		verbose_name_plural = "bankdetails"
@@ -103,6 +127,7 @@ class LoanType(models.Model):
 	loan = models.CharField(max_length =16, choices = typeloan)
 	Purposeofloan=models.TextField()
 	amountapplied = models.PositiveIntegerField()
+	bio = models.ForeignKey(Bioinfo, on_delete=models.CASCADE)
 
 
 class OtherLoans(models.Model):
@@ -111,6 +136,7 @@ class OtherLoans(models.Model):
 	date_granted = models.DateField()
 	Repayment_period = models.PositiveIntegerField()
 	Outstanding_balance = models.PositiveIntegerField()
+	bio = models.ForeignKey(Bioinfo, on_delete=models.CASCADE)
 
 	class Meta:
 		verbose_name_plural = "OtherLoans"
