@@ -4,9 +4,11 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User, Group
 from .decorators import allowed_users
+from django.core.exceptions import ObjectDoesNotExist
 
 from .forms import Bioinfoform, Businessdetailsform, empdetailsform, bankdetailsform, LoanTypeform, Otherloanform
 from .models import  Bioinfo, BusinessDetails, EmploymentDetails, Bankdetails, LoanType, OtherLoans
+
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','clientuser'])
 def home(request):
@@ -45,32 +47,36 @@ def listclients(request):
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','clientuser'])
 def updateuser(request, id):
-	userobj =Bioinfo.objects.get(id =id)
-	form = Bioinfoform(request.POST or None, instance= userobj)
-	if form.is_valid():
-		form.save()
-		form= Bioinfoform()
-		return redirect('list_user')
-	context ={
-		'userobj':userobj,
-		'form': form,
-		'title': 'update your details',
-	}
-	
-	
+	try:
+		userobj =Bioinfo.objects.get(id =id)
+		form = Bioinfoform(request.POST or None, instance= userobj)
+		if form.is_valid():
+			form.save()
+			form= Bioinfoform()
+			return redirect('list_user')
+		context ={
+			'userobj':userobj,
+			'form': form,
+			'title': 'update your details',
+		}
+	except ObjectDoesNotExist:
+		return render(request, 'codechallenege/404.html')  
 	return render(request, 'codechallenege/updatedetails.html', context)
 
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','clientuser'])
 def deletelient(request, id):
-	deluser =Bioinfo.objects.get(id =id)
-	if request.method == 'POST':
-		deluser.delete()
-		return redirect('list user')
-	context ={
-		'deluser':deluser,
-		'title': 'remove client',
-	}
+	try:
+		deluser =Bioinfo.objects.get(id =id)
+		if request.method == 'POST':
+			deluser.delete()
+			return redirect('list user')
+		context ={
+			'deluser':deluser,
+			'title': 'remove client',
+		}
+	except ObjectDoesNotExist:
+		return render(request, 'codechallenege/404.html')
 	return render(request, 'codechallenege/deleteclient.html', context)
 
 ''' seond part of the project '''
@@ -104,30 +110,36 @@ def clientsbusiness(request):
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','clientuser'])
 def updatebiz(request, id):
-	userobj =BusinessDetails.objects.get(id =id)
-	form =  Businessdetailsform(request.POST or None, instance= userobj)
-	if form.is_valid():
-		form.save()
-		form= Businessdetailsform()
-		return redirect('list user')
-	context ={
-		'userobj':userobj,
-		'form': form,
-		'title': 'update your details',
-	}
+	try:
+		userobj =BusinessDetails.objects.get(id =id)
+		form =  Businessdetailsform(request.POST or None, instance= userobj)
+		if form.is_valid():
+			form.save()
+			form= Businessdetailsform()
+			return redirect('list user')
+		context ={
+			'userobj':userobj,
+			'form': form,
+			'title': 'update your details',
+		}
+	except ObjectDoesNotExist:
+		return render(request, 'codechallenege/404.html')
 	return render(request, 'codechallenege/updatebiz.html', context)
 
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','clientuser'])
 def deletebiz(request, id):
-	delbiz =BusinessDetails.objects.get(id =id)
-	if request.method == 'POST':
-		delbiz.delete()
-		return redirect('list user')
-	context ={
-		'delbiz':delbiz,
-		'title': 'remove business',
-	}
+	try:
+		delbiz =BusinessDetails.objects.get(id =id)
+		if request.method == 'POST':
+			delbiz.delete()
+			return redirect('list user')
+		context ={
+			'delbiz':delbiz,
+			'title': 'remove business',
+		}
+	except ObjectDoesNotExist:
+		return render(request, 'codechallenege/404.html')
 	return render(request, 'codechallenege/deletebiz.html', context)
 
 ''' third part of the project '''
@@ -165,30 +177,36 @@ def showemploymentdetails(request):
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','clientuser'])
 def updateemployment(request, id):
-	useremploy =EmploymentDetails.objects.get(id =id)
-	form =  empdetailsform(request.POST or None, instance= useremploy)
-	if form.is_valid():
-		form.save()
-		form= empdetailsform()
-		return redirect('list user')
-	context ={
-		'useremploy':useremploy,
-		'form': form,
-		'title': 'update your details',
-	}
+	try:
+		useremploy =EmploymentDetails.objects.get(id =id)
+		form =  empdetailsform(request.POST or None, instance= useremploy)
+		if form.is_valid():
+			form.save()
+			form= empdetailsform()
+			return redirect('list user')
+		context ={
+			'useremploy':useremploy,
+			'form': form,
+			'title': 'update your details',
+		}
+	except ObjectDoesNotExist:
+		return render(request, 'codechallenege/404.html')
 	return render(request, 'codechallenege/updateemp.html', context)
 
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','clientuser'])
 def deleteemp(request, id):
-	delemp =EmploymentDetails.objects.get(id =id)
-	if request.method == 'POST':
-		delemp.delete()
-		return redirect('list user')
-	context ={
-		'delemp':delemp,
-		'title': 'delete employment',
-	}
+	try:
+		delemp =EmploymentDetails.objects.get(id =id)
+		if request.method == 'POST':
+			delemp.delete()
+			return redirect('list user')
+		context ={
+			'delemp':delemp,
+			'title': 'delete employment',
+		}
+	except ObjectDoesNotExist:
+		return render(request, 'codechallenege/404.html')
 	return render(request, 'codechallenege/deleteemp.html', context)
 
 
@@ -222,30 +240,36 @@ def bankclient(request):
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','clientuser'])
 def updateBank(request, id):
-	bankobj =Bankdetails.objects.get(id =id)
-	form =  bankdetailsform(request.POST or None, instance= bankobj)
-	if form.is_valid():
-		form.save()
-		form= bankdetailsform()
-		return redirect('list user')
-	context ={
-		'bankobj':bankobj,
-		'form': form,
-		'title': 'update your details',
-	}
+	try:
+		bankobj =Bankdetails.objects.get(id =id)
+		form =  bankdetailsform(request.POST or None, instance= bankobj)
+		if form.is_valid():
+			form.save()
+			form= bankdetailsform()
+			return redirect('list user')
+		context ={
+			'bankobj':bankobj,
+			'form': form,
+			'title': 'update your details',
+		}
+	except ObjectDoesNotExist:
+		return render(request, 'codechallenege/404.html')
 	return render(request, 'codechallenege/updatebank.html', context)
 
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','clientuser'])
 def deletebank(request, id):
-	delbank =Bankdetails.objects.get(id =id)
-	if request.method == 'POST':
-		delbank.delete()
-		return redirect('list user')
-	context ={
-		'delbank':delbank,
-		'title': 'remove bank details',
-	}
+	try:
+		delbank =Bankdetails.objects.get(id =id)
+		if request.method == 'POST':
+			delbank.delete()
+			return redirect('list user')
+		context ={
+			'delbank':delbank,
+			'title': 'remove bank details',
+		}
+	except ObjectDoesNotExist:
+		return render(request, 'codechallenege/404.html')
 	return render(request, 'codechallenege/deletebank.html', context)
 
 
@@ -281,30 +305,36 @@ def loantypedetails(request):
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','clientuser'])
 def updateloan(request, id):
-	loanobj =LoanType.objects.get(id =id)
-	form =  LoanTypeform(request.POST or None, instance= loanobj)
-	if form.is_valid():
-		form.save()
-		form= LoanTypeform()
-		return redirect('list user')
-	context ={
-		'loanobj':loanobj,
-		'form': form,
-		'title': 'update your details',
-	}
+	try:
+		loanobj =LoanType.objects.get(id =id)
+		form =  LoanTypeform(request.POST or None, instance= loanobj)
+		if form.is_valid():
+			form.save()
+			form= LoanTypeform()
+			return redirect('list user')
+		context ={
+			'loanobj':loanobj,
+			'form': form,
+			'title': 'update your details',
+		}
+	except ObjectDoesNotExist:
+		return render(request, 'codechallenege/404.html')
 	return render(request, 'codechallenege/updateloan.html', context)
 
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','clientuser'])
 def deleteloan(request, id):
-	delloan =loandetails.objects.get(id =id)
-	if request.method == 'POST':
-		delloan.delete()
-		return redirect('list user')
-	context ={
-		'delloan':delloan,
-		'title': 'remove bank details',
-	}
+	try:
+		delloan =loandetails.objects.get(id =id)
+		if request.method == 'POST':
+			delloan.delete()
+			return redirect('list user')
+		context ={
+			'delloan':delloan,
+			'title': 'remove bank details',
+		}
+	except ObjectDoesNotExist:
+		return render(request, 'codechallenege/404.html')
 	return render(request, 'codechallenege/deleteloan.html', context)
 
 
@@ -335,29 +365,35 @@ def otherdetails(request):
 
 @login_required(login_url='/accounts/login/')
 def updateother(request, id):
-	otherobj =OtherLoans.objects.get(id =id)
-	form =  Otherloanform(request.POST or None, instance= otherobj)
-	if form.is_valid():
-		form.save()
-		form= Otherloanform()
-		return redirect('list user')
-	context ={
-		'otherobj':otherobj,
-		'form': form,
-		'title': 'update your details',
-	}
+	try:
+		otherobj =OtherLoans.objects.get(id =id)
+		form =  Otherloanform(request.POST or None, instance= otherobj)
+		if form.is_valid():
+			form.save()
+			form= Otherloanform()
+			return redirect('list user')
+		context ={
+			'otherobj':otherobj,
+			'form': form,
+			'title': 'update your details',
+		}
+	except ObjectDoesNotExist:
+		return render(request, 'codechallenege/404.html')
 	return render(request, 'codechallenege/updateother.html', context)
 
 @login_required(login_url='/accounts/login/')
 def deleteother(request, id):
-	delother =OtherLoans.objects.get(id =id)
-	if request.method == 'POST':
-		delother.delete()
-		return redirect('list user')
-	context ={
-		'delother':delother,
-		'title': 'delete other  bank details',
-	}
+	try:
+		delother =OtherLoans.objects.get(id =id)
+		if request.method == 'POST':
+			delother.delete()
+			return redirect('list user')
+		context ={
+			'delother':delother,
+			'title': 'delete other  bank details',
+		}
+	except ObjectDoesNotExist:
+		return render(request, 'codechallenege/404.html')
 	return render(request, 'codechallenege/deleteother.html', context)
 
 

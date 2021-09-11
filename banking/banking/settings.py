@@ -27,11 +27,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'codechallenege',
+    'accounts',
     'django.contrib.sites',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',
+    # 'allauth',
+    # 'allauth.account',
+    # 'allauth.socialaccount',
+    # 'allauth.socialaccount.providers.google',
     
 ]
 
@@ -112,7 +113,7 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
+LOGIN_REDIRECT_URL = '/'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
@@ -122,24 +123,27 @@ STATIC_URL = '/static/'
 SITE_ID = 7
 
 
-ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS =1
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = "mandatory"
-ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5
-ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 86400 
+# ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS =1
+# ACCOUNT_EMAIL_REQUIRED = True
+# ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+# ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5
+# ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 86400 
+# ACCOUNT_AUTHENTICATION_METHOD = 'email'
+# ACCOUNT_EMAIL_REQUIRED = True
+# ACCOUNT_EMAIL_UNIQUE = True
 
-LOGIN_REDIRECT_URL ='/'
-LOGOUT_REDIRECT_URL = '/'
+# LOGIN_REDIRECT_URL ='/'
+# LOGOUT_REDIRECT_URL = '/'
 
-# Provider specific settings
-SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-        'SCOPE': [
-            'profile',
-            'email',
-        ],
-        'AUTH_PARAMS': {
-            'access_type': 'online',
-        }
-    }
-}
+# # Provider specific settings
+# SOCIALACCOUNT_PROVIDERS = {
+#     'google': {
+#         'SCOPE': [
+#             'profile',
+#             'email',
+#         ],
+#         'AUTH_PARAMS': {
+#             'access_type': 'online',
+#         }
+#     }
+# }
