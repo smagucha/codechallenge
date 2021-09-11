@@ -11,11 +11,16 @@ def sign_up(request):
     form = UserCreationForm(request.POST or None)
     if request.method == "POST":
         if form.is_valid():
-            user = form.save()
-            login(request,user)
-            group = Group.objects.get(name='clientuser')
-            user.groups.add(group)
-            return redirect('login')
+        	try:
+        		user= User.objects.get(username=username)
+        		context= {'form': form, 'error':'The username you entered has already been taken.'}
+        		return render(request, 'accounts/sign_up.html', context)
+        	except User.DoesNotExist:
+        		user = form.save()
+        	login(request,user)
+        	group = Group.objects.get(name='clientuser')
+        	user.groups.add(group)
+        	return redirect('login')
     context['form']=form
     return render(request,'accounts/sign_up.html',context)
 

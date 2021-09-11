@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'codechallenege',
     'accounts',
     'django.contrib.sites',
+    'crispy_forms',
     # 'allauth',
     # 'allauth.account',
     # 'allauth.socialaccount',
@@ -81,7 +82,7 @@ DATABASES = {
 }
 
 
-
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 

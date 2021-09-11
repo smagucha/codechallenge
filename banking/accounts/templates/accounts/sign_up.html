@@ -33,7 +33,7 @@
                   </div>
                   <form class="signup" id="signup_form" method="post" action="{% url 'sign-up'%}">
                     {%csrf_token%}
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                     <label for="id_username">Username:</label> <input type="text" name="username" placeholder="Username" autocomplete="username" minlength="1" maxlength="150" required id="id_username" class="form-control">
                     <div class="form-group">
                     </div>
@@ -47,7 +47,9 @@
                     <div class="form-group">
                       <button type="submit" class="btn btn-primary btn-block">Register</button>
                     </div>
-                    <hr>
+                    <hr> -->
+                    {{form.as_p}}
+                    <input type="submit" name="register">
                   </form>
                   <hr>
                   <div class="text-center">

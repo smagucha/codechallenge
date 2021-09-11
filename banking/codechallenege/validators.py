@@ -4,26 +4,22 @@ from django.core.exceptions import ValidationError
 #first_name.isalpha() strings only
 # pin.isalnum()
 
-
-
-from django.core.exceptions import ValidationError
-
-
-
 def onlyletters(value):
     if value.isalpha() == True:
         return  value
     else:
-        raise ValidationError(
-            ('%(value)s enter a validate input'),
-            params={'value': value},
-        )
+         raise ValidationError("only letters are allowed")
 
 def onlyisalnum(value):
     if value.isalnum() == True:
         return  value
     else:
-        raise ValidationError(
-            ('%(value)s enter a validate input'),
-            params={'value': value},
-        )
+        raise ValidationError("only numbers and letters are allowed")
+
+
+def onlyisnumeric(value):
+    if value.isnumeric() == True:
+        return  value
+    else:
+        raise ValidationError("enter numbers only")
+

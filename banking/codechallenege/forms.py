@@ -14,15 +14,15 @@ class Bioinfoform(ModelForm):
 		fields ='__all__'
 		widgets = { 'DateOfBirth': DateInput() }
 
-	def clean_membership_no(self): 
-		membership_no = self.cleaned_data.get('membership_no')
-		if (membership_no == ""):
-			raise forms.ValidationError('This field cannot be left blank')
-		else:
-			for instance in Bioinfo.objects.all():
-				if instance.membership_no == membership_no:
-					raise forms.ValidationError(membership_no , ' is already added')
-				return membership_no
+	# def clean_membership_no(self): 
+	# 	membership_no = self.cleaned_data.get('membership_no')
+	# 	if (membership_no == ""):
+	# 		raise forms.ValidationError('This field cannot be left blank')
+	# 	else:
+	# 		for instance in Bioinfo.objects.all():
+	# 			if instance.membership_no == membership_no:
+	# 				raise forms.ValidationError(membership_no , ' is already added')
+	# 			return membership_no
 
 
 class Businessdetailsform(ModelForm):

@@ -1,5 +1,5 @@
 from django.db import models
-from .validators import onlyletters
+from .validators import onlyletters, onlyisalnum,onlyisnumeric
 
 
 from django.contrib.auth.models import Group, Permission
@@ -43,20 +43,20 @@ class Bioinfo(models.Model):
 		)
 	
 	membership_no = models.PositiveIntegerField()
-	first_name = models.CharField(max_length= 50)
-	middle_name = models.CharField(max_length= 50)
-	last_name = models.CharField(max_length= 50)
+	first_name = models.CharField(max_length= 50, validators= [onlyletters])
+	middle_name = models.CharField(max_length= 50, validators= [onlyletters])
+	last_name = models.CharField(max_length= 50, validators= [onlyletters])
 	DateOfBirth = models.DateField()
-	Homeaddress = models.CharField(max_length= 50)
+	Homeaddress = models.CharField(max_length= 50, validators= [onlyletters])
 	OffieNumber= models.PositiveIntegerField()
 	mobile_no = models.CharField(max_length=12,)
-	Pin_no = models.CharField(max_length= 50)
-	Email = models.EmailField(max_length=100)
-	physical_add = models.CharField(max_length = 100)
-	town = models.CharField(max_length = 100)
-	estate = models.CharField(max_length = 100)
-	house_no = models.CharField(max_length= 100)
-	livedthrere=  models.CharField(max_length = 100)
+	Pin_no = models.CharField(max_length= 50, validators= [onlyisalnum])
+	Email = models.EmailField(max_length=100, )
+	physical_add = models.CharField(max_length = 100, validators= [onlyletters])
+	town = models.CharField(max_length = 100, validators= [onlyletters])
+	estate = models.CharField(max_length = 100, validators= [onlyletters])
+	house_no = models.CharField(max_length= 100, validators= [onlyisalnum])
+	livedthrere=  models.CharField(max_length = 100,validators=[onlyisnumeric])
 	Houseowned = models.CharField(max_length=3, choices=Owned,)
 	martial_status =models.CharField(max_length=7, choices=Marry,)
 	No_dependents = models.PositiveIntegerField()
@@ -70,7 +70,7 @@ class Bioinfo(models.Model):
 
 # client to fill if he/she runs a business
 class BusinessDetails(models.Model):
-	typeofbusiness = models.CharField(max_length = 100)
+	typeofbusiness = models.CharField(max_length = 100, validators= [onlyletters])
 	yrsoperation = models.PositiveIntegerField()
 	Businessincome = models.PositiveIntegerField()
 	bio = models.ForeignKey(Bioinfo, on_delete=models.CASCADE)
@@ -92,9 +92,9 @@ class EmploymentDetails(models.Model):
 		(Contract, 'Contract'),
 		)
 
-	employer= models.CharField(max_length = 100)
-	physical_add = models.CharField(max_length= 100)
-	designation = models.CharField (max_length=100)
+	employer= models.CharField(max_length = 100, validators= [onlyletters])
+	physical_add = models.CharField(max_length= 100, validators= [onlyletters])
+	designation = models.CharField (max_length=100,validators= [onlyletters])
 	employmenterms= models.CharField(max_length=9, choices=terms,)
 	bio = models.ForeignKey(Bioinfo, on_delete=models.CASCADE)
 
@@ -104,10 +104,10 @@ class EmploymentDetails(models.Model):
 	
 
 class Bankdetails(models.Model):
-	account_name = models.CharField(max_length= 100)
+	account_name = models.CharField(max_length= 100, validators= [onlyisnumeric])
 	acount_no = models.PositiveIntegerField()
-	Bank = models.CharField(max_length= 100)
-	branch = models.CharField(max_length= 100)
+	Bank = models.CharField(max_length= 100, validators= [onlyletters])
+	branch = models.CharField(max_length= 100, validators= [onlyletters])
 	bio = models.ForeignKey(Bioinfo, on_delete=models.CASCADE)
 
 	class Meta:
@@ -125,13 +125,13 @@ class LoanType(models.Model):
 		(school_fee , 'school fee'),
 		)
 	loan = models.CharField(max_length =16, choices = typeloan)
-	Purposeofloan=models.TextField()
+	Purposeofloan=models.TextField(validators= [onlyletters])
 	amountapplied = models.PositiveIntegerField()
 	bio = models.ForeignKey(Bioinfo, on_delete=models.CASCADE)
 
 
 class OtherLoans(models.Model):
-	bank = models.CharField(max_length = 100)
+	bank = models.CharField(max_length = 100, validators= [onlyletters])
 	amount_advanced = models.PositiveIntegerField()
 	date_granted = models.DateField()
 	Repayment_period = models.PositiveIntegerField()

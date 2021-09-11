@@ -60,7 +60,7 @@
        <td>{{user.date_granted}}</td>
        <td>{{user.Repayment_period}}</td>
        <td>{{user.Outstanding_balance}}</td>
-       <td><a href="{% url 'update_other' user.id%}">update</a></td>
+       <td><a href="{% url 'update_other' user.id %}">update</a></td>
        <td><a href="{% url 'delete_other' user.id%}">delete</a></td>
    </tr>
    {%endfor%}

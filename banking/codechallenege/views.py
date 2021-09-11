@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User, Group
 from .decorators import allowed_users
 from django.core.exceptions import ObjectDoesNotExist
+import requests
 
 from .forms import Bioinfoform, Businessdetailsform, empdetailsform, bankdetailsform, LoanTypeform, Otherloanform
 from .models import  Bioinfo, BusinessDetails, EmploymentDetails, Bankdetails, LoanType, OtherLoans
@@ -23,16 +24,22 @@ def userbio(request):
 	if request.method == 'POST': 
 		form = Bioinfoform(request.POST)
 		if form.is_valid():
-			form.save()
-			form = Bioinfoform()
-		return redirect('list_user')
+			name = form.cleaned_data['membership_no']
+			getmembership_no = Bioinfo.objects.filter(membership_no= name).exists()
+			if not getmembership_no:
+				form.save()
+				form = Bioinfoform()
+				return redirect('list_user')
+			else:
+				context= {'form': form, 'error':'membership No as been taken.'}
+				return render(request, 'codechallenege/bioinfo.html', context)
 	else:
 		form = Bioinfoform()
-		context ={
-			'title': 'Bio info',
-			'form': form
-		}
-		return render(request,'codechallenege/bioinfo.html', context)
+	context ={
+		'title': 'Bio info',
+		'form': form
+	}
+	return render(request,'codechallenege/bioinfo.html', context)
 
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','clientuser'])
