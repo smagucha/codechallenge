@@ -426,13 +426,25 @@ def deleteother(request, id):
 
 def moredetails(request):
 
-	fkuserid= Bioinfo.objects.get(bio__username=request.user)
-	x= request.user.id
-	print(fkuserid)
-	print(x)
-	# if request.user.id == :
-	# 	print() 
+	# #fkuserid= Bioinfo.objects.filter(bio__username=request.user)
+	# getuserdetails= Bioinfo.objects.filter(bio__id=request.user.id)
 	
-
-	# clients = Bioinfo.objects.filter()
-	return render(request, 'codechallenege/userdetails.html')
+	# getid = request.user.id
+	# print(getid)
+	# detail = getuserdetails.bioinfo_set.all()
+	userid= request.user
+	detailbio= userid.bioinfo_set.all()
+	detailbank= userid.bankdetails_set.all()
+	detailbiz= userid.businessdetails_set.all()
+	detailemp= userid.employmentdetails_set.all()
+	detaildel= userid.otherloans_set.all()
+	detailloan= userid.loantype_set.all()
+	context={
+		'detailbank': detailbank,
+		'detailbio': detailbio,
+		'detailbiz': detailbiz,
+		'detailemp': detailemp,
+		'detaildel': detaildel,
+		'detailloan':detailloan
+	}
+	return render(request, 'codechallenege/userdetails.html', context)
