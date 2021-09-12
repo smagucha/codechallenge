@@ -29,7 +29,7 @@ urlpatterns = [
     path('loandetails', views.loantypedetails, name='loan_details'),
     path('updateloan/<int:id>', views.updateloan, name='update_loan'),
     path('removeloan/<int:id>', views.deletebank, name='delete_loan'),
-
+    path('moredetails', views.moredetails),
   
 
     path('otherform', views.otherform, name='other_form'),

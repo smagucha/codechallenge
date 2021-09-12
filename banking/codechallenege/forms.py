@@ -11,7 +11,8 @@ class Bioinfoform(ModelForm):
 
 	class Meta:
 		model = Bioinfo
-		fields ='__all__'
+		# fields ='__all__'
+		exclude = ['bio']
 		widgets = { 'DateOfBirth': DateInput() }
 
 	# def clean_membership_no(self): 
@@ -29,7 +30,7 @@ class Businessdetailsform(ModelForm):
 
 	class Meta:
 		model = BusinessDetails
-		fields ="__all__"
+		exclude = ['bio']
 
 
 
@@ -37,14 +38,14 @@ class empdetailsform(ModelForm):
 
 	class Meta:
 		model = EmploymentDetails
-		fields ="__all__"
+		exclude = ['bio']
 
 
 class bankdetailsform(ModelForm):
 
 	class Meta:
 		model = Bankdetails
-		fields ="__all__"
+		exclude = ['bio']
 
 
 
@@ -52,10 +53,10 @@ class LoanTypeform(ModelForm):
 
 	class Meta:
 		model = LoanType
-		fields ="__all__"
+		exclude = ['bio']
 
 class Otherloanform(ModelForm):
 
 	class Meta:
 		model = OtherLoans
-		fields ="__all__"
+		exclude = ['bio']

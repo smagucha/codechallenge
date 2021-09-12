@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User, Group
 from .decorators import allowed_users
+from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 import requests
 
@@ -22,12 +23,21 @@ def home(request):
 @allowed_users(allowed_roles=['admin','clientuser'])
 def userbio(request):
 	if request.method == 'POST': 
+		#author = Author(title='Mr')
+		obj= request.user.id
+
 		form = Bioinfoform(request.POST)
 		if form.is_valid():
 			name = form.cleaned_data['membership_no']
 			getmembership_no = Bioinfo.objects.filter(membership_no= name).exists()
 			if not getmembership_no:
-				form.save()
+				# bioinfo=form.save(commit=False)
+				# bioinfo.bio = request.user.id
+				# bioinfo.save()
+				#form.save()
+				obj = form.save(commit=False)
+				obj.bio = request.user
+				obj.save()
 				form = Bioinfoform()
 				return redirect('list_user')
 			else:
@@ -93,7 +103,9 @@ def businessdetails(request):
 	if request.method == 'POST':
 		form = Businessdetailsform(request.POST)
 		if form.is_valid():
-			form.save()
+			obj = form.save(commit=False)
+			obj.bio = request.user
+			obj.save()
 			form = Businessdetailsform()
 			return redirect('homepage')
 	else:
@@ -158,16 +170,18 @@ def employmentdetails(request):
 	if request.method == 'POST':
 		form = empdetailsform(request.POST)
 		if form.is_valid():
-			form.save()
+			obj = form.save(commit=False)
+			obj.bio = request.user
+			obj.save()
 			form = empdetailsform()
 			return redirect('homepage')
 	else:
 		form = empdetailsform()
-		context ={
-			'title': 'employment details',
-			'form': form
-		}
-		return render(request,'codechallenege/employmentform.html', context)
+	context ={
+		'title': 'employment details',
+		'form': form
+	}
+	return render(request,'codechallenege/employmentform.html', context)
 
 
 ''' think of show user his own employment details as well as loaner '''
@@ -224,7 +238,9 @@ def BankDetails(request):
 	if request.method == 'POST':
 		form = bankdetailsform(request.POST)
 		if form.is_valid():
-			form.save()
+			obj = form.save(commit=False)
+			obj.bio = request.user
+			obj.save()
 			form = bankdetailsform()
 			return redirect('homepage')
 	else:
@@ -288,7 +304,9 @@ def Loanform(request):
 	if request.method == 'POST':
 		form = LoanTypeform(request.POST)
 		if form.is_valid():
-			form.save()
+			obj = form.save(commit=False)
+			obj.bio = request.user
+			obj.save()
 			form = LoanTypeform()
 			return redirect('homepage')
 	else:
@@ -351,7 +369,9 @@ def otherform(request):
 	if request.method == 'POST':
 		form = Otherloanform(request.POST)
 		if form.is_valid():
-			form.save()
+			obj = form.save(commit=False)
+			obj.bio = request.user
+			obj.save()
 			form = Otherloanform()
 			return redirect('homepage')
 	else:
@@ -404,3 +424,15 @@ def deleteother(request, id):
 	return render(request, 'codechallenege/deleteother.html', context)
 
 
+def moredetails(request):
+
+	fkuserid= Bioinfo.objects.get(bio__username=request.user)
+	x= request.user.id
+	print(fkuserid)
+	print(x)
+	# if request.user.id == :
+	# 	print() 
+	
+
+	# clients = Bioinfo.objects.filter()
+	return render(request, 'codechallenege/userdetails.html')

@@ -1,5 +1,6 @@
 from django.db import models
 from .validators import onlyletters, onlyisalnum,onlyisnumeric
+from django.contrib.auth.models import User
 
 
 from django.contrib.auth.models import Group, Permission
@@ -60,6 +61,7 @@ class Bioinfo(models.Model):
 	Houseowned = models.CharField(max_length=3, choices=Owned,)
 	martial_status =models.CharField(max_length=7, choices=Marry,)
 	No_dependents = models.PositiveIntegerField()
+	bio = models.ForeignKey(User, on_delete=models.CASCADE)
 
 	def __str__(self):
 		return (self.first_name +"   "+self.middle_name)
@@ -73,7 +75,7 @@ class BusinessDetails(models.Model):
 	typeofbusiness = models.CharField(max_length = 100, validators= [onlyletters])
 	yrsoperation = models.PositiveIntegerField()
 	Businessincome = models.PositiveIntegerField()
-	bio = models.ForeignKey(Bioinfo, on_delete=models.CASCADE)
+	bio = models.ForeignKey(User, on_delete=models.CASCADE)
 
 	class Meta:
 		verbose_name_plural = "BusinessDetails"
@@ -96,7 +98,7 @@ class EmploymentDetails(models.Model):
 	physical_add = models.CharField(max_length= 100, validators= [onlyletters])
 	designation = models.CharField (max_length=100,validators= [onlyletters])
 	employmenterms= models.CharField(max_length=9, choices=terms,)
-	bio = models.ForeignKey(Bioinfo, on_delete=models.CASCADE)
+	bio = models.ForeignKey(User, on_delete=models.CASCADE)
 
 	class Meta:
 		verbose_name_plural = "EmploymentDetails"
@@ -104,11 +106,11 @@ class EmploymentDetails(models.Model):
 	
 
 class Bankdetails(models.Model):
-	account_name = models.CharField(max_length= 100, validators= [onlyisnumeric])
+	account_name = models.CharField(max_length= 100)
 	acount_no = models.PositiveIntegerField()
 	Bank = models.CharField(max_length= 100, validators= [onlyletters])
-	branch = models.CharField(max_length= 100, validators= [onlyletters])
-	bio = models.ForeignKey(Bioinfo, on_delete=models.CASCADE)
+	branch = models.CharField(max_length= 100)
+	bio = models.ForeignKey(User, on_delete=models.CASCADE)
 
 	class Meta:
 		verbose_name_plural = "bankdetails"
@@ -127,7 +129,7 @@ class LoanType(models.Model):
 	loan = models.CharField(max_length =16, choices = typeloan)
 	Purposeofloan=models.TextField(validators= [onlyletters])
 	amountapplied = models.PositiveIntegerField()
-	bio = models.ForeignKey(Bioinfo, on_delete=models.CASCADE)
+	bio = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
 class OtherLoans(models.Model):
@@ -136,7 +138,7 @@ class OtherLoans(models.Model):
 	date_granted = models.DateField()
 	Repayment_period = models.PositiveIntegerField()
 	Outstanding_balance = models.PositiveIntegerField()
-	bio = models.ForeignKey(Bioinfo, on_delete=models.CASCADE)
+	bio = models.ForeignKey(User, on_delete=models.CASCADE)
 
 	class Meta:
 		verbose_name_plural = "OtherLoans"

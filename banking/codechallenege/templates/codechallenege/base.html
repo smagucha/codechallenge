@@ -86,7 +86,7 @@
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>other loan details</span></a>
       </li>
-      {% elif request.user|has_group:"admin" %}
+      {% elif request.user|has_group:"webadminister" %}
       <li class="nav-item active">
         <a class="nav-link" href="{% url 'homepage' %}">
           <i class="fas fa-fw fa-tachometer-alt"></i>
@@ -118,6 +118,11 @@
         <a class="nav-link" href="{% url 'userdetails' %}">
           <i class="bi bi-person"></i>
           <span>Person info</span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'bank_form' %}">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>bank form</span></a>
       </li>
       <li class="nav-item active">
         <a class="nav-link" href="{% url 'client_business' %}">
