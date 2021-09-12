@@ -95,8 +95,8 @@ class EmploymentDetails(models.Model):
 		)
 
 	employer= models.CharField(max_length = 100, validators= [onlyletters])
-	physical_add = models.CharField(max_length= 100, validators= [onlyletters])
-	designation = models.CharField (max_length=100,validators= [onlyletters])
+	physical_add = models.CharField(max_length= 100 )
+	designation = models.CharField (max_length=100)
 	employmenterms= models.CharField(max_length=9, choices=terms,)
 	bio = models.ForeignKey(User, on_delete=models.CASCADE)
 
@@ -127,7 +127,7 @@ class LoanType(models.Model):
 		(school_fee , 'school fee'),
 		)
 	loan = models.CharField(max_length =16, choices = typeloan)
-	Purposeofloan=models.TextField(validators= [onlyletters])
+	Purposeofloan=models.TextField()
 	amountapplied = models.PositiveIntegerField()
 	bio = models.ForeignKey(User, on_delete=models.CASCADE)
 

@@ -11,11 +11,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = 'gplo9q_&*5*c&blz#!4b3edbvfaknir4&$ex#ef^m^u!4sc7w6'
+
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = True
+
 DEBUG = config('DEBUG', cast=bool)
 
 ALLOWED_HOSTS = []
@@ -32,7 +32,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'codechallenege',
     'accounts',
-    'django.contrib.sites',
+    # 'django.contrib.sites',
     'crispy_forms',
     # 'allauth',
     # 'allauth.account',

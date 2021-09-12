@@ -110,11 +110,11 @@ def businessdetails(request):
 			return redirect('homepage')
 	else:
 		form = Businessdetailsform()
-		context ={
-			'title': 'business details',
-			'form': form
-		}
-		return render(request,'codechallenege/businessdetails.html', context)
+	context ={
+		'title': 'business details',
+		'form': form
+	}
+	return render(request,'codechallenege/businessdetails.html', context)
 
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','clientuser'])
@@ -245,11 +245,11 @@ def BankDetails(request):
 			return redirect('homepage')
 	else:
 		form = bankdetailsform()
-		context ={
-			'title': 'bank details',
-			'form': form
-		}
-		return render(request,'codechallenege/bankform.html', context)
+	context ={
+		'title': 'bank details',
+		'form': form
+	}
+	return render(request,'codechallenege/bankform.html', context)
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','clientuser'])
 def bankclient(request):
@@ -311,11 +311,11 @@ def Loanform(request):
 			return redirect('homepage')
 	else:
 		form = LoanTypeform()
-		context ={
-			'title': 'loan form',
-			'form': form
-		}
-		return render(request,'codechallenege/loanform.html', context)
+	context ={
+		'title': 'loan form',
+		'form': form
+	}
+	return render(request,'codechallenege/loanform.html', context)
 
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','clientuser'])

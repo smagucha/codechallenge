@@ -12,6 +12,7 @@ def sign_up(request):
     if request.method == "POST":
         if form.is_valid():
         	try:
+        		username = form.cleaned_data['username']
         		user= User.objects.get(username=username)
         		context= {'form': form, 'error':'The username you entered has already been taken.'}
         		return render(request, 'accounts/sign_up.html', context)
