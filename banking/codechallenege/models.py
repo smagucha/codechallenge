@@ -1,25 +1,35 @@
 from django.db import models
 from .validators import onlyletters, onlyisalnum,onlyisnumeric
 from django.contrib.auth.models import User
-
-
+from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import Group, Permission
 
 
-# import User model
-# from users.models import User
 
-new_group, created = Group.objects.get_or_create(name ='admin')
-new_group, created = Group.objects.get_or_create(name ='clientuser')
-new_group, created = Group.objects.get_or_create(name ='webadminister')
-# # Code to add permission to group
-# ct = ContentType.objects.get_for_model(User)
 
-# # If I want to add 'Can go Haridwar' permission to level0 ?
-# permission = Permission.objects.create(codename ='can_go_haridwar',
-# 										name ='Can go to Haridwar',
-# 												content_type = ct)
-# new_group.permissions.add(permission)
+new_group1, created = Group.objects.get_or_create(name ='clientuser')
+new_group2, created = Group.objects.get_or_create(name ='webadminister')
+
+ct = ContentType.objects.get_for_model(User)
+
+
+# permission = Permission.objects.create(
+# 	codename ='add_bankdetails',name ='can add bank details', 
+# 	# codename ='add_bioinfo',name ='can add bioinfo',
+# 	# codename ='add_business_details',name ='can add business details',
+# 	# codename ='add_employment_details',name ='can add employment details',
+# 	# codename ='add_loan_type',name ='can add loan type',
+# 	# codename ='add_other_loans',name ='can add other others',
+# content_type = ct)
+
+
+
+# can add bioinfo
+# can_add_business_details
+# can_add_employment_details
+# can_add_loan_type
+# can_add_bank_details
+# new_group1.permissions.add(permission)
 
 
 class Bioinfo(models.Model):
@@ -147,3 +157,15 @@ class OtherLoans(models.Model):
 
 
 
+# codechallenege bankdetails can add_bankdetails
+# codechallenege bioinfo can add_bioinfo
+# codechallenege business details can add_business_details
+# codechallenege employment details can add_employment_details
+# codechallenege loan type can add_loan_type
+# codechallenege bank details can add_bank_details
+# can_add_bankdetails
+# can_add_bioinfo
+# can_add_business_details
+# can_add_employment_details
+# can_add_loan_type
+# can_add_bank_details

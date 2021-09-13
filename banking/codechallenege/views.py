@@ -11,6 +11,11 @@ import requests
 from .forms import Bioinfoform, Businessdetailsform, empdetailsform, bankdetailsform, LoanTypeform, Otherloanform
 from .models import  Bioinfo, BusinessDetails, EmploymentDetails, Bankdetails, LoanType, OtherLoans
 
+
+
+def page_not_found_view(request, exception):
+    return render(request, 'codechallenege/404.html', status=404)
+
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','clientuser'])
 def home(request):
@@ -39,8 +44,9 @@ def userbio(request):
 				obj.bio = request.user
 				obj.save()
 				form = Bioinfoform()
-				return redirect('list_user')
+				return redirect('client_business')
 			else:
+				form = Bioinfoform()
 				context= {'form': form, 'error':'membership No as been taken.'}
 				return render(request, 'codechallenege/bioinfo.html', context)
 	else:
@@ -52,7 +58,7 @@ def userbio(request):
 	return render(request,'codechallenege/bioinfo.html', context)
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','clientuser'])
+@allowed_users(allowed_roles=['admin','webadminister'])
 def listclients(request):
 	clients = Bioinfo.objects.all()
 	context = {
@@ -62,7 +68,7 @@ def listclients(request):
 	return render(request, 'codechallenege/listlclients.html', context)
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','clientuser'])
+@allowed_users(allowed_roles=['admin','webadminister'])
 def updateuser(request, id):
 	try:
 		userobj =Bioinfo.objects.get(id =id)
@@ -81,7 +87,7 @@ def updateuser(request, id):
 	return render(request, 'codechallenege/updatedetails.html', context)
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','clientuser'])
+@allowed_users(allowed_roles=['admin','webadminister'])
 def deletelient(request, id):
 	try:
 		deluser =Bioinfo.objects.get(id =id)
@@ -107,7 +113,7 @@ def businessdetails(request):
 			obj.bio = request.user
 			obj.save()
 			form = Businessdetailsform()
-			return redirect('homepage')
+			return redirect('emp_form')
 	else:
 		form = Businessdetailsform()
 	context ={
@@ -117,7 +123,7 @@ def businessdetails(request):
 	return render(request,'codechallenege/businessdetails.html', context)
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','clientuser'])
+@allowed_users(allowed_roles=['admin','webadminister'])
 def clientsbusiness(request):
 	clientsbiz = BusinessDetails.objects.all()
 	context = {
@@ -127,7 +133,7 @@ def clientsbusiness(request):
 	return render(request, 'codechallenege/clientbiz.html', context)
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','clientuser'])
+@allowed_users(allowed_roles=['admin','webadminister'])
 def updatebiz(request, id):
 	try:
 		userobj =BusinessDetails.objects.get(id =id)
@@ -146,7 +152,7 @@ def updatebiz(request, id):
 	return render(request, 'codechallenege/updatebiz.html', context)
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','clientuser'])
+@allowed_users(allowed_roles=['admin','webadminister'])
 def deletebiz(request, id):
 	try:
 		delbiz =BusinessDetails.objects.get(id =id)
@@ -174,7 +180,7 @@ def employmentdetails(request):
 			obj.bio = request.user
 			obj.save()
 			form = empdetailsform()
-			return redirect('homepage')
+			return redirect('bank_form')
 	else:
 		form = empdetailsform()
 	context ={
@@ -186,7 +192,7 @@ def employmentdetails(request):
 
 ''' think of show user his own employment details as well as loaner '''
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','clientuser'])
+@allowed_users(allowed_roles=['admin','webadminister'])
 def showemploymentdetails(request):
 	details = EmploymentDetails.objects.all()
 	context = {
@@ -196,7 +202,7 @@ def showemploymentdetails(request):
 	return render(request, 'codechallenege/showemp.html', context)
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','clientuser'])
+@allowed_users(allowed_roles=['admin','webadminister'])
 def updateemployment(request, id):
 	try:
 		useremploy =EmploymentDetails.objects.get(id =id)
@@ -215,7 +221,7 @@ def updateemployment(request, id):
 	return render(request, 'codechallenege/updateemp.html', context)
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','clientuser'])
+@allowed_users(allowed_roles=['admin','webadminister'])
 def deleteemp(request, id):
 	try:
 		delemp =EmploymentDetails.objects.get(id =id)
@@ -251,7 +257,7 @@ def BankDetails(request):
 	}
 	return render(request,'codechallenege/bankform.html', context)
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','clientuser'])
+@allowed_users(allowed_roles=['admin','webadminister'])
 def bankclient(request):
 	clientsbank = Bankdetails.objects.all()
 	context = {
@@ -261,7 +267,7 @@ def bankclient(request):
 	return render(request, 'codechallenege/bankdetails.html', context)
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','clientuser'])
+@allowed_users(allowed_roles=['admin','webadminister'])
 def updateBank(request, id):
 	try:
 		bankobj =Bankdetails.objects.get(id =id)
@@ -280,7 +286,7 @@ def updateBank(request, id):
 	return render(request, 'codechallenege/updatebank.html', context)
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','clientuser'])
+@allowed_users(allowed_roles=['admin','webadminister'])
 def deletebank(request, id):
 	try:
 		delbank =Bankdetails.objects.get(id =id)
@@ -318,7 +324,7 @@ def Loanform(request):
 	return render(request,'codechallenege/loanform.html', context)
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','clientuser'])
+@allowed_users(allowed_roles=['admin','webadminister'])
 def loantypedetails(request):
 	clientsbank = LoanType.objects.all()
 	context = {
@@ -328,7 +334,7 @@ def loantypedetails(request):
 	return render(request, 'codechallenege/loandetails.html', context)
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','clientuser'])
+@allowed_users(allowed_roles=['admin','webadminister'])
 def updateloan(request, id):
 	try:
 		loanobj =LoanType.objects.get(id =id)
@@ -347,7 +353,7 @@ def updateloan(request, id):
 	return render(request, 'codechallenege/updateloan.html', context)
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','clientuser'])
+@allowed_users(allowed_roles=['admin','webadminister'])
 def deleteloan(request, id):
 	try:
 		delloan =loandetails.objects.get(id =id)
@@ -365,6 +371,7 @@ def deleteloan(request, id):
 
 ''' sixth part of the project '''
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','clientuser'])
 def otherform(request):
 	if request.method == 'POST':
 		form = Otherloanform(request.POST)
@@ -382,6 +389,7 @@ def otherform(request):
 		}
 		return render(request,'codechallenege/otherform.html', context)
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','webadminister'])
 def otherdetails(request):
 	clientsbank = OtherLoans.objects.all()
 	context = {
@@ -391,6 +399,7 @@ def otherdetails(request):
 	return render(request, 'codechallenege/otherdetails.html', context)
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','webadminister'])
 def updateother(request, id):
 	try:
 		otherobj =OtherLoans.objects.get(id =id)
@@ -409,6 +418,7 @@ def updateother(request, id):
 	return render(request, 'codechallenege/updateother.html', context)
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','webadminister'])
 def deleteother(request, id):
 	try:
 		delother =OtherLoans.objects.get(id =id)
@@ -425,13 +435,6 @@ def deleteother(request, id):
 
 
 def moredetails(request):
-
-	# #fkuserid= Bioinfo.objects.filter(bio__username=request.user)
-	# getuserdetails= Bioinfo.objects.filter(bio__id=request.user.id)
-	
-	# getid = request.user.id
-	# print(getid)
-	# detail = getuserdetails.bioinfo_set.all()
 	userid= request.user
 	detailbio= userid.bioinfo_set.all()
 	detailbank= userid.bankdetails_set.all()

@@ -21,3 +21,5 @@ urlpatterns = [
     path('accounts/reset/<uidb64>/<token>', auth_views.PasswordResetConfirmView.as_view(template_name ='accounts/password_reset_confirm.html'),),
     path('accounts/reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(template_name='accounts/password_reset_complete.html'),),
 ]
+
+handler404 = "codechallenege.views.page_not_found_view"

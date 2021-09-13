@@ -5,6 +5,7 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from .forms import userupdateform
 from django.contrib.auth.models import Group
+from django.core.exceptions import ValidationError
 
 def sign_up(request):
     context = {}
@@ -14,7 +15,7 @@ def sign_up(request):
         	try:
         		username = form.cleaned_data['username']
         		user= User.objects.get(username=username)
-        		context= {'form': form, 'error':'The username you entered has already been taken.'}
+        		context= {'form': form, 'error':'username as been taken.'}
         		return render(request, 'accounts/sign_up.html', context)
         	except User.DoesNotExist:
         		user = form.save()
@@ -31,8 +32,19 @@ def updateprofile(request, ):
 	if request.method =='POST':
 		form= userupdateform(request.POST, instance= request.user)
 		if form.is_valid():
-			form.save()
+			try:
+				email = form.cleaned_data['email']
+				user= User.objects.get(email=email)
+				context= {'form': form, }
+				return render(request, 'accounts/edit_profile.html', context)
+			except User.DoesNotExist:
+				user = form.save()
 		return redirect('homepage')
 	else:
 		form= userupdateform(instance= request.user)
-	return render(request, 'accounts/edit_profile.html', {'form': form,})
+	context ={
+		'form':form,
+		'error':'username as been taken.'
+	}
+	return render(request, 'accounts/edit_profile.html', context)
+

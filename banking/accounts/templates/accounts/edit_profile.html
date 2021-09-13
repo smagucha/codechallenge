@@ -3,9 +3,5 @@
  {{title}}
 {%endblock %}
 {%block content%}
- <form method="Post">
-    {%csrf_token%}
-     {{form.as_p}}
-     <button  type="submit"  class="button">submit</button>
- </form>
+{% include "codechallenege/form.html" %}
 {%endblock%}
