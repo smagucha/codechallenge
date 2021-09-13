@@ -18,6 +18,9 @@
                         terms of employment
                       </th>
                       <th>
+                        user
+                      </th>
+                      <th>
                         update
                       </th>
                       <th>
@@ -51,6 +54,7 @@
        <td>{{user.physical_add}}</td>
        <td>{{user.designation}}</td>
        <td>{{user.employmenterms}}</td>
+       <td>{{user.bio}}</td>
        <td><a href="{% url 'update_biz' user.id%}">update</a></td>
        <td><a href="{% url 'delete_emp' user.id%}">delete</a></td>
 
