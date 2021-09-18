@@ -1,36 +1,11 @@
 from django.db import models
 from .validators import onlyletters, onlyisalnum,onlyisnumeric
 from django.contrib.auth.models import User
-from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import Group, Permission
 
-
-
-
+new_group, created = Group.objects.get_or_create(name ='admin')
 new_group1, created = Group.objects.get_or_create(name ='clientuser')
 new_group2, created = Group.objects.get_or_create(name ='webadminister')
-
-ct = ContentType.objects.get_for_model(User)
-
-
-# permission = Permission.objects.create(
-# 	codename ='add_bankdetails',name ='can add bank details', 
-# 	# codename ='add_bioinfo',name ='can add bioinfo',
-# 	# codename ='add_business_details',name ='can add business details',
-# 	# codename ='add_employment_details',name ='can add employment details',
-# 	# codename ='add_loan_type',name ='can add loan type',
-# 	# codename ='add_other_loans',name ='can add other others',
-# content_type = ct)
-
-
-
-# can add bioinfo
-# can_add_business_details
-# can_add_employment_details
-# can_add_loan_type
-# can_add_bank_details
-# new_group1.permissions.add(permission)
-
 
 class Bioinfo(models.Model):
 	No ='No'
@@ -156,16 +131,127 @@ class OtherLoans(models.Model):
 
 
 
+code_bankdetails = Permission.objects.get(codename='add_bankdetails')
+code_bioinfo = Permission.objects.get(codename='add_bioinfo')
+code_businessdetails = Permission.objects.get(codename='add_businessdetails')
+code_employmentdetails = Permission.objects.get(codename='add_employmentdetails')
+code_loantype = Permission.objects.get(codename='add_loantype')
+code_otherloans = Permission.objects.get(codename='add_otherloans')
+new_group2.permissions.add(code_bankdetails)
+new_group2.permissions.add(code_bioinfo)
+new_group2.permissions.add(code_businessdetails)
+new_group2.permissions.add(code_employmentdetails)
+new_group2.permissions.add(code_loantype)
+new_group2.permissions.add(code_otherloans)
 
-# codechallenege bankdetails can add_bankdetails
-# codechallenege bioinfo can add_bioinfo
-# codechallenege business details can add_business_details
-# codechallenege employment details can add_employment_details
-# codechallenege loan type can add_loan_type
-# codechallenege bank details can add_bank_details
-# can_add_bankdetails
-# can_add_bioinfo
-# can_add_business_details
-# can_add_employment_details
-# can_add_loan_type
-# can_add_bank_details
+
+code_change_bankdetails = Permission.objects.get(codename='change_bankdetails')
+code_change_loantype= Permission.objects.get(codename='change_loantype')
+code_change_bioinfo = Permission.objects.get(codename='change_bioinfo')
+code_change_employmentdetails = Permission.objects.get(codename='change_employmentdetails')
+code_change_businessdetails = Permission.objects.get(codename='change_businessdetails')
+code_change_otherloans = Permission.objects.get(codename='change_otherloans')
+code_delete_bankdetails = Permission.objects.get(codename='delete_bankdetails')
+code_delete_businessdetails = Permission.objects.get(codename='delete_businessdetails')
+code_delete_bioinfo = Permission.objects.get(codename='delete_bioinfo')
+code_delete_employmentdetails = Permission.objects.get(codename='delete_employmentdetails')
+code_delete_loantype = Permission.objects.get(codename='delete_loantype')
+code_delete_otherloans = Permission.objects.get(codename='delete_otherloans')
+code_view_bankdetails = Permission.objects.get(codename='view_bankdetails')
+code_view_bioinfo = Permission.objects.get(codename='view_bioinfo')
+code_view_businessdetails = Permission.objects.get(codename='view_businessdetails')
+code_view_employmentdetails= Permission.objects.get(codename='view_employmentdetails')
+code_view_loantype = Permission.objects.get(codename='view_loantype')
+code_view_otherloans= Permission.objects.get(codename='view_otherloans')
+new_group1.permissions.add(code_change_bankdetails)
+new_group1.permissions.add(code_change_bioinfo)
+new_group1.permissions.add(code_change_loantype)
+new_group1.permissions.add(code_change_otherloans)
+new_group1.permissions.add(code_change_businessdetails)
+new_group1.permissions.add(code_change_employmentdetails)
+new_group1.permissions.add(code_delete_bankdetails)
+new_group1.permissions.add(code_delete_bioinfo)
+new_group1.permissions.add(code_delete_loantype)
+new_group1.permissions.add(code_delete_otherloans)
+new_group1.permissions.add(code_delete_businessdetails)
+new_group1.permissions.add(code_delete_employmentdetails)
+new_group1.permissions.add(code_view_bankdetails)
+new_group1.permissions.add(code_view_bioinfo)
+new_group1.permissions.add(code_view_loantype)
+new_group1.permissions.add(code_view_otherloans)
+new_group1.permissions.add(code_view_businessdetails)
+new_group1.permissions.add(code_view_employmentdetails)
+
+
+code_add_logentry = Permission.objects.get(codename='add_logentry')
+code_change_logentry= Permission.objects.get(codename='change_logentry')
+code_delete_logentry = Permission.objects.get(codename='delete_logentry')
+code_view_logentry = Permission.objects.get(codename='view_logentry')
+code_add_group = Permission.objects.get(codename='add_group')
+code_change_group = Permission.objects.get(codename='change_group')
+code_delete_group = Permission.objects.get(codename='delete_group')
+code_view_group = Permission.objects.get(codename='view_group')
+code_add_permission = Permission.objects.get(codename='add_permission')
+code_view_permission= Permission.objects.get(codename='view_permission')
+code_change_permission= Permission.objects.get(codename='change_permission')
+code_delete_permission= Permission.objects.get(codename='delete_permission')
+code_add_user = Permission.objects.get(codename='add_user')
+code_change_user= Permission.objects.get(codename='change_user')
+code_delete_user = Permission.objects.get(codename='delete_user')
+code_view_user= Permission.objects.get(codename='view_user')
+code_add_contenttype = Permission.objects.get(codename='add_contenttype')
+code_change_contenttype= Permission.objects.get(codename='change_contenttype')
+code_delete_contenttype = Permission.objects.get(codename='delete_contenttype')
+code_view_contenttype= Permission.objects.get(codename='view_contenttype')
+code_add_session= Permission.objects.get(codename='add_session')
+code_change_session= Permission.objects.get(codename='change_session')
+code_delete_session = Permission.objects.get(codename='delete_session')
+code_view_session= Permission.objects.get(codename='view_session')
+new_group.permissions.add(code_change_bankdetails)
+new_group.permissions.add(code_change_bioinfo)
+new_group.permissions.add(code_change_loantype)
+new_group.permissions.add(code_change_otherloans)
+new_group.permissions.add(code_change_businessdetails)
+new_group.permissions.add(code_change_employmentdetails)
+new_group.permissions.add(code_delete_bankdetails)
+new_group.permissions.add(code_delete_bioinfo)
+new_group.permissions.add(code_delete_loantype)
+new_group.permissions.add(code_delete_otherloans)
+new_group.permissions.add(code_delete_businessdetails)
+new_group.permissions.add(code_delete_employmentdetails)
+new_group.permissions.add(code_view_bankdetails)
+new_group.permissions.add(code_view_bioinfo)
+new_group.permissions.add(code_view_loantype)
+new_group.permissions.add(code_view_otherloans)
+new_group.permissions.add(code_view_businessdetails)
+new_group.permissions.add(code_view_employmentdetails)
+new_group.permissions.add(code_bankdetails)
+new_group.permissions.add(code_bioinfo)
+new_group.permissions.add(code_businessdetails)
+new_group.permissions.add(code_employmentdetails)
+new_group.permissions.add(code_loantype)
+new_group.permissions.add(code_otherloans)
+new_group.permissions.add(code_add_logentry)
+new_group.permissions.add(code_view_logentry)
+new_group.permissions.add(code_change_logentry)
+new_group.permissions.add(code_delete_logentry)
+new_group.permissions.add(code_add_user)
+new_group.permissions.add(code_change_user)
+new_group.permissions.add(code_view_user)
+new_group.permissions.add(code_delete_user)
+new_group.permissions.add(code_add_permission)
+new_group.permissions.add(code_view_permission)
+new_group.permissions.add(code_delete_permission)
+new_group.permissions.add(code_change_permission)
+new_group.permissions.add(code_add_group)
+new_group.permissions.add(code_view_group)
+new_group.permissions.add(code_change_group)
+new_group.permissions.add(code_delete_group)
+new_group.permissions.add(code_add_contenttype)
+new_group.permissions.add(code_view_contenttype)
+new_group.permissions.add(code_change_contenttype)
+new_group.permissions.add(code_delete_contenttype)
+new_group.permissions.add(code_add_session)
+new_group.permissions.add(code_view_session)
+new_group.permissions.add(code_change_session)
+new_group.permissions.add(code_delete_session)

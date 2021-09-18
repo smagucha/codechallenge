@@ -2,11 +2,9 @@ from pathlib import Path
 import os
 from decouple import config
 
-# import mimetypes
-# mimetypes.add_type("text/css", ".css", True)
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
 
+BASE_DIR = Path(__file__).resolve().parent.parent
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -33,17 +31,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'codechallenege',
     'accounts',
-    # 'django.contrib.sites',
-    'crispy_forms',
-    # 'allauth',
-    # 'allauth.account',
-    # 'allauth.socialaccount',
-    # 'allauth.socialaccount.providers.google',
-    
+    'crispy_forms',   
 ]
-
-   
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -76,15 +65,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'banking.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
 
 DATABASES = {
 
@@ -145,34 +125,9 @@ LOGIN_REDIRECT_URL = '/'
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, ('static')) # new
 
 
-SITE_ID = 7
 
-
-# ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS =1
-# ACCOUNT_EMAIL_REQUIRED = True
-# ACCOUNT_EMAIL_VERIFICATION = "mandatory"
-# ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5
-# ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 86400 
-# ACCOUNT_AUTHENTICATION_METHOD = 'email'
-# ACCOUNT_EMAIL_REQUIRED = True
-# ACCOUNT_EMAIL_UNIQUE = True
-
-# LOGIN_REDIRECT_URL ='/'
-# LOGOUT_REDIRECT_URL = '/'
-
-# # Provider specific settings
-# SOCIALACCOUNT_PROVIDERS = {
-#     'google': {
-#         'SCOPE': [
-#             'profile',
-#             'email',
-#         ],
-#         'AUTH_PARAMS': {
-#             'access_type': 'online',
-#         }
-#     }
-# }
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH = str(BASE_DIR.joinpath('sent_emails'))

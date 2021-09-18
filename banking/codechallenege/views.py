@@ -6,6 +6,7 @@ from django.contrib.auth.models import User, Group
 from .decorators import allowed_users
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
+
 import requests
 
 from .forms import Bioinfoform, Businessdetailsform, empdetailsform, bankdetailsform, LoanTypeform, Otherloanform
@@ -451,3 +452,99 @@ def moredetails(request):
 		'detailloan':detailloan
 	}
 	return render(request, 'codechallenege/userdetails.html', context)
+
+
+
+def grouppermmission():
+	admin = Group.objects.get(name = 'admin')
+	clientuser = Group.objects.get(name = 'clientuser')
+	webadminister = Group.objects.get(name = 'webadminister')
+	permission_codename = ['add_logentry',
+	'change_logentry',
+	'delete_logentry',
+	'view_logentry',
+	'add_group',
+	'add_permission',
+	'add_user',
+	'change_group',
+	'change_permission,'
+	'change_user',
+	'delete_group',
+	'delete_permission',
+	'delete_user',
+	'view_group',
+	'permission',
+	'view_user'
+	'add_bankdetails',
+	'add_bioinfo',
+	'add_businessdetails',
+	'add_employmentdetails',
+	'add_loantype',
+	'add_otherloans',
+	'change_bankdetails',
+	'change_bioinfo',
+	'change_businessdetails',
+	'change_employmentdetails',
+	'change_loantype',
+	'change_otherloans',
+	'delete_bankdetails',
+	'delete_bioinfo',
+	'delete_businessdetails',
+	'delete_employmentdetails',
+	'delete_loantype',
+	'delete_otherloans',
+	'view_bankdetails',
+	'view_bioinfo',
+	'view_businessdetails',
+	'view_employmentdetails',
+	'view_loantype',
+	'view_otherloans',
+	'add_contenttype',
+	'change_contenttype',
+	'delete_contenttype',
+	'view_contenttype',
+	'add_session',
+	'change_session',
+	'delete_session',
+	'view_session'
+	]
+	for permission in permission_codename:
+	    perm  = Permission.objects.filter(codename=permission).first()
+	    admin.permissions.add(perm) # added permissions to group
+	permission_codename1 = [
+		'add_bankdetails',
+		'add_bioinfo',
+		'add_businessdetails',
+		'add_employmentdetails',
+		'add_loantype',
+		'add_otherloans',
+	]
+	for permission in permission_codename1:
+	    perm  = Permission.objects.filter(codename=permission).first()
+	    clientuser.permissions.add(perm) # added permissions to group
+
+	permission_codename2 = [
+		
+		'change_bankdetails',
+		'change_bioinfo',
+		'change_businessdetails',
+		'change_employmentdetails',
+		'change_loantype',
+		'change_otherloans',
+		'delete_bankdetails',
+		'delete_bioinfo',
+		'delete_businessdetails',
+		'delete_employmentdetails',
+		'delete_loantype',
+		'delete_otherloans',
+		'view_bankdetails',
+		'view_bioinfo',
+		'view_businessdetails',
+		'view_employmentdetails',
+		'view_loantype',
+		'view_otherloans'
+	]
+
+	for permission in permission_codename2:
+	    perm  = Permission.objects.filter(codename=permission).first()
+	    webadminister.permissions.add(perm) # added permissions to group
